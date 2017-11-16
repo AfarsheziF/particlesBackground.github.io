@@ -42,8 +42,8 @@ function connect() {
         //});
 
         $.ajax({
-            url: "pbOnline.pd",
-            datatype: "jsonp",
+            url: "../patches/pbOnline.pd",
+            datatype: "json",
             type: 'get',
             error: function (xmlHttpRequest, textStatus, errorThrown) {
                 console.log("Error loading PD patch");
