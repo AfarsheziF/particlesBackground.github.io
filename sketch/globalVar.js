@@ -21,7 +21,7 @@ function GlobalVar(_p5) {
 
     this.opacity = 7;
     this.linesLenght = 40;
-    this.backgroundColor = 25;
+    this.backgroundColor = 0;
     this.particalColor = 255;
 
     this.endSkatch = false;

@@ -42,7 +42,7 @@ function connect() {
         //});
 
         $.ajax({
-            url: "../pbOnline.pd",
+            url: "pbOnline.pd",
             datatype: "jsonp",
             type: 'get',
             error: function (xmlHttpRequest, textStatus, errorThrown) {
