@@ -4,15 +4,23 @@ var ranSet = false;
 var interval = 5000;
 var x;
 var y;
+var thisParticlesSize;
+var playSystem = true;
 
 function System(_p5) {
 
     this.p5 = _p5;
     this.particles = [];
 
-    this.addParticle = function(x,y) {
-        var p = new Particle(this.p5, new Vec2D(x, y), this.particles.length, this.p5.random(7,20));
+    this.addParticle = function (x, y) {
+        if (this.particles.length === thisParticlesSize) {
+            //console.log("Clean system", thisParticlesSize, this.particles.length);
+            this.cleanSystem();
+        }
+        thisParticlesSize = this.particles.length;
+        var p = new Particle(this.p5, new Vec2D(x, y), this.particles.length, this.p5.random(globalVar.particleRadius - 2, globalVar.particleRadius));
         this.particles.push(p);
+        //console.log("Add p", thisParticlesSize, this.particles.length);
     }
 
     this.removeParticle = function (p) {
@@ -30,8 +38,8 @@ function System(_p5) {
     this.printSystem = function () {
         console.log(
             "System print",
-            "\nParticles:",this.particles.length,
-            "\nPhysics particles:",this.p5.physics.particles.length,
+            "\nParticles:", this.particles.length,
+            "\nPhysics particles:", this.p5.physics.particles.length,
             "\nPhysics behaviors:", this.p5.physics.behaviors.length);
     }
 
@@ -44,10 +52,15 @@ function System(_p5) {
         }
     }
 
+    this.cleanSystem = function () {
+        this.particles = [];
+        this.p5.physics.particles = [];
+        this.p5.physics.behaviors = [];
+    }
+
     this.run = function () {
         if (this.p5.mouseIsPressed) {
             this.addParticle(this.p5.mouseX, this.p5.mouseY);
-            //console.log(this.particles.length);
         }
 
         var time = this.p5.millis();
@@ -64,14 +77,24 @@ function System(_p5) {
 
             if (skatchOnline) {
                 Pd.send('play', [x]);
-                //console.log("playSystem", x, y);
             } else {
                 socket.emit("playSystem", x);
-             }
+            }
 
             if (time > timer + (interval * 2)) {
                 timer = time;
                 ranSet = false;
+
+                if (playSystem) {
+                    if (globalVar.particleRadius > 20) {
+                        globalVar.particleJitter += 0.5;
+                    } else {
+                        globalVar.particleJitter += 0.01;
+                        globalVar.particleRadius++;
+                    }
+                    //console.log("Radius:", globalVar.particleRadius, "Jitter:", globalVar.particleJitter);
+                }
+
                 if (skatchOnline) {
                     Pd.send('stop', [0]);
                 } else {

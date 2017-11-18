@@ -17,6 +17,7 @@ var mySketch = function (p) {
 
         p.system = new System(p);
         //p.backgroundColor = new BackgroundColor(p);
+        p.background(0);
     }
 
     //-----DRAW-----//

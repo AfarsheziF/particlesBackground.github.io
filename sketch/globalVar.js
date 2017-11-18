@@ -4,7 +4,7 @@ function GlobalVar(_p5) {
     this.p5 = _p5;
 
     this.particleForce = -2;
-    this.particleRadius = 7;
+    this.particleRadius = 2;
     this.particleJitter = 0.01;
     this.particleForceManupulation = 0.5;
     this.particleForceMinimum = 0.000000000001;
@@ -19,7 +19,7 @@ function GlobalVar(_p5) {
     this.thisMouseY;
     this.onHover = false;
 
-    this.opacity = 7;
+    this.opacity = 10;
     this.linesLenght = 40;
     this.backgroundColor = 0;
     this.particalColor = 255;

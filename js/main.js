@@ -42,7 +42,7 @@ function connect() {
         //});
 
         $.ajax({
-            url: "../patches/pbOnline.pd",
+            url: "./patches/pbOnline.pd",
             datatype: "json",
             type: 'get',
             error: function (xmlHttpRequest, textStatus, errorThrown) {
