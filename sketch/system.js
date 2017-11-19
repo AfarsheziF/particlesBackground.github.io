@@ -59,12 +59,12 @@ function System(_p5) {
     }
 
     this.run = function () {
-        if (this.p5.touchIsDown && this.p5.mouseIsPressed) {
+        if (this.p5.touchIsDown || this.p5.mouseIsPressed) {
             this.addParticle(this.p5.mouseX, this.p5.mouseY);
         }
 
         var time = this.p5.millis();
-        if (!this.p5.touchIsDown  && time > timer + interval) {
+        if (!this.p5.touchIsDown && time > timer + interval) {
             interval = this.p5.random(3000, 5000);
             //interval = this.p5.random(1000, 1200);
             if (!ranSet) {
